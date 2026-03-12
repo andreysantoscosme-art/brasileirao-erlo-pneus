@@ -1,0 +1,8 @@
+{
+  "name": "Brasileirão Erlo Pneus",
+  "short_name": "ErloBolao",
+  "display": "standalone",
+  "start_url": "index.html",
+  "background_color": "#0b0f19",
+  "theme_color": "#0b0f19"
+}

@@ -1,7 +1,6 @@
 
-let players=JSON.parse(localStorage.getItem("players")||"[]")
-let teamsPoints=JSON.parse(localStorage.getItem("teamsPoints")||"{}")
-let apiKey=localStorage.getItem("apikey")||""
+let players = JSON.parse(localStorage.getItem("players") || "[]")
+let teamsPoints = JSON.parse(localStorage.getItem("teamsPoints") || "{}")
 
 function save(){
 localStorage.setItem("players",JSON.stringify(players))
@@ -11,7 +10,7 @@ render()
 
 function teamUsed(team){
 for(let p of players){
-if(p.time1===team||p.time2===team)return true
+if(p.time1===team || p.time2===team) return true
 }
 return false
 }
@@ -44,6 +43,7 @@ return
 
 players.push({nome:nome,time1:t1,time2:t2})
 save()
+
 }
 
 function calc(p){
@@ -82,7 +82,7 @@ function drawChart(data){
 let labels=data.map(d=>d.nome)
 let values=data.map(d=>d.pontos)
 
-if(chart)chart.destroy()
+if(chart) chart.destroy()
 
 chart=new Chart(document.getElementById("chart"),{
 type:"line",
@@ -94,32 +94,30 @@ datasets:[{label:"Pontos",data:values}]
 
 }
 
-function saveKey(){
-apiKey=document.getElementById("apikey").value
-localStorage.setItem("apikey",apiKey)
-}
+async function updateTable(){
 
-async function updateFromAPI(){
+try{
 
-if(!apiKey){
-alert("Coloque API key")
-return
-}
+let res = await fetch("https://site.api.espn.com/apis/v2/sports/soccer/bra.1/standings")
+let data = await res.json()
 
-let res=await fetch("https://api.football-data.org/v4/competitions/BSA/standings",{
-headers:{"X-Auth-Token":apiKey}
-})
+data.children[0].standings.entries.forEach(t=>{
 
-let data=await res.json()
+let name = t.team.displayName
+let points = t.stats.find(s=>s.name==="points").value
 
-data.standings[0].table.forEach(t=>{
-teamsPoints[t.team.name]=t.points
+teamsPoints[name]=points
+
 })
 
 save()
 
+}catch(e){
+
+alert("Não foi possível atualizar automaticamente agora")
+
 }
 
-setInterval(updateFromAPI,3600000)
+}
 
 render()

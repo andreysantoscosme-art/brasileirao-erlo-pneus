@@ -6,15 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Brasileirão Erlo Pneus</title>
 <link rel="stylesheet" href="style.css">
-<link rel="manifest" href="manifest.json">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
 
 <header>
 <h1>🏆 Brasileirão Erlo Pneus</h1>
-<p>Bolão Profissional</p>
+<p>Bolão automático – atualização sem API</p>
 </header>
 
 <div class="container">
@@ -96,12 +94,7 @@
 <canvas id="chart"></canvas>
 </div>
 
-<div class="card">
-<h2>Atualização automática</h2>
-<input id="apikey" placeholder="API key football-data.org">
-<button onclick="saveKey()">Salvar API</button>
-<button onclick="updateFromAPI()">Atualizar agora</button>
-</div>
+<button onclick="updateTable()">Atualizar tabela do Brasileirão</button>
 
 </div>
 

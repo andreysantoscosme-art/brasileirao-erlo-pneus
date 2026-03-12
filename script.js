@@ -41,17 +41,14 @@ players.push({nome:nome,t1:t1,t2:t2})
 localStorage.setItem("players", JSON.stringify(players))
 
 render()
-
 }
 
 function removePlayer(i){
 
 players.splice(i,1)
-
 localStorage.setItem("players", JSON.stringify(players))
 
 render()
-
 }
 
 function calc(p){
@@ -90,7 +87,6 @@ tr.innerHTML=`
 tb.appendChild(tr)
 
 })
-
 }
 
 async function updateTable(){
@@ -107,6 +103,7 @@ let pts=t.stats.find(s=>s.name==="points").value
 
 if(name==="RB Bragantino") name="Red Bull Bragantino"
 if(name==="Atlético Mineiro") name="Atlético-MG"
+if(name==="Vasco da Gama") name="Vasco"
 
 pontos[name]=pts
 

@@ -1,6 +1,33 @@
 
-let players = JSON.parse(localStorage.getItem("players") || "[]")
-let teamsPoints = JSON.parse(localStorage.getItem("teamsPoints") || "{}")
+const codes={
+"ERLO1":"Jogador1",
+"ERLO2":"Jogador2",
+"ERLO3":"Jogador3",
+"ERLO4":"Jogador4",
+"ERLO5":"Jogador5",
+"ERLO6":"Jogador6",
+"ERLO7":"Jogador7",
+"ERLO8":"Jogador8",
+"ERLO9":"Jogador9",
+"ERLO10":"Jogador10"
+}
+
+let currentUser=null
+let players=JSON.parse(localStorage.getItem("players")||"{}")
+let teamsPoints=JSON.parse(localStorage.getItem("teamsPoints")||"{}")
+let apiKey=localStorage.getItem("apikey")||""
+
+function login(){
+let code=document.getElementById("code").value
+if(codes[code]){
+currentUser=codes[code]
+document.getElementById("loginScreen").style.display="none"
+document.getElementById("app").style.display="block"
+render()
+}else{
+alert("Código inválido")
+}
+}
 
 function save(){
 localStorage.setItem("players",JSON.stringify(players))
@@ -8,79 +35,53 @@ localStorage.setItem("teamsPoints",JSON.stringify(teamsPoints))
 render()
 }
 
-function teamUsed(team){
-for(let p of players){
-if(p.time1===team || p.time2===team) return true
-}
-return false
-}
+function saveTeams(){
+let t1=document.getElementById("team1").value
+let t2=document.getElementById("team2").value
 
-function addPlayer(){
-
-if(players.length>=10){
-alert("Máximo 10 jogadores")
-return
-}
-
-let nome=document.getElementById("nome").value
-let t1=document.getElementById("time1").value
-let t2=document.getElementById("time2").value
-
-if(!nome||!t1||!t2){
-alert("Preencha tudo")
-return
-}
-
-if(t1===t2){
-alert("Escolha dois times diferentes")
-return
-}
-
-if(teamUsed(t1)||teamUsed(t2)){
-alert("Esse time já foi escolhido")
-return
-}
-
-players.push({nome:nome,time1:t1,time2:t2})
+players[currentUser]={team1:t1,team2:t2}
 save()
+}
 
+function updateTeam(){
+let t=document.getElementById("team").value
+let p=parseInt(document.getElementById("points").value)
+teamsPoints[t]=p
+save()
 }
 
 function calc(p){
-return (teamsPoints[p.time1]||0)+(teamsPoints[p.time2]||0)
+return (teamsPoints[p.team1]||0)+(teamsPoints[p.team2]||0)
 }
 
 function render(){
 
-let ranking=players.map(p=>({
-nome:p.nome,
-times:p.time1+" + "+p.time2,
-pontos:calc(p)
-}))
+let ranking=[]
 
-ranking.sort((a,b)=>b.pontos-a.pontos)
+for(let name in players){
+ranking.push({name:name,points:calc(players[name])})
+}
+
+ranking.sort((a,b)=>b.points-a.points)
 
 let tbody=document.querySelector("#ranking tbody")
 tbody.innerHTML=""
 
 ranking.forEach((r,i)=>{
-
 let tr=document.createElement("tr")
-tr.innerHTML=`<td>${i+1}</td><td>${r.nome}</td><td>${r.times}</td><td>${r.pontos}</td>`
+tr.innerHTML=`<td>${i+1}</td><td>${r.name}</td><td>${r.points}</td>`
 tbody.appendChild(tr)
-
 })
 
-drawChart(ranking)
-
+renderChart(ranking)
 }
 
 let chart
 
-function drawChart(data){
+function renderChart(data){
 
-let labels=data.map(d=>d.nome)
-let values=data.map(d=>d.pontos)
+let labels=data.map(d=>d.name)
+let values=data.map(d=>d.points)
 
 if(chart) chart.destroy()
 
@@ -91,33 +92,30 @@ labels:labels,
 datasets:[{label:"Pontos",data:values}]
 }
 })
-
 }
 
-async function updateTable(){
+function saveKey(){
+apiKey=document.getElementById("apikey").value
+localStorage.setItem("apikey",apiKey)
+}
 
-try{
+async function updateFromAPI(){
 
-let res = await fetch("https://site.api.espn.com/apis/v2/sports/soccer/bra.1/standings")
-let data = await res.json()
+if(!apiKey){
+alert("Adicione API key")
+return
+}
 
-data.children[0].standings.entries.forEach(t=>{
+let res=await fetch("https://api.football-data.org/v4/competitions/BSA/standings",{
+headers:{"X-Auth-Token":apiKey}
+})
 
-let name = t.team.displayName
-let points = t.stats.find(s=>s.name==="points").value
+let data=await res.json()
 
-teamsPoints[name]=points
-
+data.standings[0].table.forEach(t=>{
+teamsPoints[t.team.name]=t.points
 })
 
 save()
 
-}catch(e){
-
-alert("Não foi possível atualizar automaticamente agora")
-
 }
-
-}
-
-render()

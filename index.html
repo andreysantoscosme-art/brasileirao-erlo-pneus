@@ -6,71 +6,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Brasileirão Erlo Pneus</title>
 <link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
+
+<div id="loginScreen" class="center">
+<h1>Brasileirão Erlo Pneus</h1>
+<input id="code" placeholder="Código de acesso">
+<button onclick="login()">Entrar</button>
+</div>
+
+<div id="app" style="display:none">
 
 <header>
 <h1>🏆 Brasileirão Erlo Pneus</h1>
-<p>Bolão automático – atualização sem API</p>
 </header>
 
 <div class="container">
 
 <div class="card">
-<h2>Adicionar jogador</h2>
+<h2>Escolher seus times</h2>
 
-<input id="nome" placeholder="Nome do jogador">
-
-<select id="time1">
+<select id="team1">
 <option value="">Time 1</option>
-<option value="Athletico-PR">Athletico-PR</option>
-<option value="Atlético-MG">Atlético-MG</option>
-<option value="Bahia">Bahia</option>
-<option value="Botafogo">Botafogo</option>
-<option value="Bragantino">Bragantino</option>
-<option value="Chapecoense">Chapecoense</option>
-<option value="Corinthians">Corinthians</option>
-<option value="Coritiba">Coritiba</option>
-<option value="Cruzeiro">Cruzeiro</option>
-<option value="Flamengo">Flamengo</option>
-<option value="Fluminense">Fluminense</option>
-<option value="Grêmio">Grêmio</option>
-<option value="Internacional">Internacional</option>
-<option value="Mirassol">Mirassol</option>
-<option value="Palmeiras">Palmeiras</option>
-<option value="Remo">Remo</option>
-<option value="Santos">Santos</option>
-<option value="São Paulo">São Paulo</option>
-<option value="Vasco">Vasco</option>
-<option value="Vitória">Vitória</option>
+<option value="Flamengo">Flamengo</option><option value="Palmeiras">Palmeiras</option><option value="Corinthians">Corinthians</option><option value="São Paulo">São Paulo</option><option value="Santos">Santos</option><option value="Grêmio">Grêmio</option><option value="Internacional">Internacional</option><option value="Atlético-MG">Atlético-MG</option><option value="Cruzeiro">Cruzeiro</option><option value="Botafogo">Botafogo</option><option value="Fluminense">Fluminense</option><option value="Bahia">Bahia</option><option value="Vasco">Vasco</option><option value="Fortaleza">Fortaleza</option><option value="Ceará">Ceará</option><option value="Bragantino">Bragantino</option><option value="Athletico-PR">Athletico-PR</option><option value="Juventude">Juventude</option><option value="Cuiabá">Cuiabá</option><option value="Goiás">Goiás</option>
 </select>
 
-<select id="time2">
+<select id="team2">
 <option value="">Time 2</option>
-<option value="Athletico-PR">Athletico-PR</option>
-<option value="Atlético-MG">Atlético-MG</option>
-<option value="Bahia">Bahia</option>
-<option value="Botafogo">Botafogo</option>
-<option value="Bragantino">Bragantino</option>
-<option value="Chapecoense">Chapecoense</option>
-<option value="Corinthians">Corinthians</option>
-<option value="Coritiba">Coritiba</option>
-<option value="Cruzeiro">Cruzeiro</option>
-<option value="Flamengo">Flamengo</option>
-<option value="Fluminense">Fluminense</option>
-<option value="Grêmio">Grêmio</option>
-<option value="Internacional">Internacional</option>
-<option value="Mirassol">Mirassol</option>
-<option value="Palmeiras">Palmeiras</option>
-<option value="Remo">Remo</option>
-<option value="Santos">Santos</option>
-<option value="São Paulo">São Paulo</option>
-<option value="Vasco">Vasco</option>
-<option value="Vitória">Vitória</option>
+<option value="Flamengo">Flamengo</option><option value="Palmeiras">Palmeiras</option><option value="Corinthians">Corinthians</option><option value="São Paulo">São Paulo</option><option value="Santos">Santos</option><option value="Grêmio">Grêmio</option><option value="Internacional">Internacional</option><option value="Atlético-MG">Atlético-MG</option><option value="Cruzeiro">Cruzeiro</option><option value="Botafogo">Botafogo</option><option value="Fluminense">Fluminense</option><option value="Bahia">Bahia</option><option value="Vasco">Vasco</option><option value="Fortaleza">Fortaleza</option><option value="Ceará">Ceará</option><option value="Bragantino">Bragantino</option><option value="Athletico-PR">Athletico-PR</option><option value="Juventude">Juventude</option><option value="Cuiabá">Cuiabá</option><option value="Goiás">Goiás</option>
 </select>
 
-<button onclick="addPlayer()">Adicionar</button>
+<button onclick="saveTeams()">Salvar</button>
 
 </div>
 
@@ -81,7 +50,6 @@
 <tr>
 <th>#</th>
 <th>Jogador</th>
-<th>Times</th>
 <th>Pontos</th>
 </tr>
 </thead>
@@ -94,7 +62,21 @@
 <canvas id="chart"></canvas>
 </div>
 
-<button onclick="updateTable()">Atualizar tabela do Brasileirão</button>
+<div class="card admin">
+<h2>Admin – atualizar pontos</h2>
+<input id="team" placeholder="Time">
+<input id="points" type="number" placeholder="Pontos">
+<button onclick="updateTeam()">Atualizar</button>
+</div>
+
+<div class="card admin">
+<h2>Atualização automática</h2>
+<input id="apikey" placeholder="API key football-data.org">
+<button onclick="saveKey()">Salvar API</button>
+<button onclick="updateFromAPI()">Atualizar tabela</button>
+</div>
+
+</div>
 
 </div>
 

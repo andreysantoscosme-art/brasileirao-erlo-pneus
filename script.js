@@ -14,7 +14,7 @@ o2.text=t
 select2.appendChild(o2)
 })
 
-let players=[]
+let players = JSON.parse(localStorage.getItem("players")) || []
 let pontos={}
 
 function teamUsed(t){
@@ -37,16 +37,25 @@ if(t1===t2){alert("Escolha times diferentes");return}
 if(teamUsed(t1)||teamUsed(t2)){alert("Esse time já foi escolhido");return}
 
 players.push({nome:nome,t1:t1,t2:t2})
+
+localStorage.setItem("players", JSON.stringify(players))
+
 render()
+
+}
+
+function removePlayer(i){
+
+players.splice(i,1)
+
+localStorage.setItem("players", JSON.stringify(players))
+
+render()
+
 }
 
 function calc(p){
 return (pontos[p.t1]||0)+(pontos[p.t2]||0)
-}
-
-function removePlayer(i){
-players.splice(i,1)
-render()
 }
 
 function render(){
@@ -81,6 +90,7 @@ tr.innerHTML=`
 tb.appendChild(tr)
 
 })
+
 }
 
 async function updateTable(){
@@ -99,6 +109,7 @@ if(name==="RB Bragantino") name="Red Bull Bragantino"
 if(name==="Atlético Mineiro") name="Atlético-MG"
 
 pontos[name]=pts
+
 })
 
 render()
@@ -109,3 +120,5 @@ render()
 
 setInterval(updateTable,300000)
 updateTable()
+
+render()

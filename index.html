@@ -2,46 +2,35 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bolão PRO</title>
+<title>Bolão Master</title>
 <link rel="stylesheet" href="style.css">
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 </head>
-
 <body>
 
-<h1>🏆 Bolão PRO</h1>
+<h1>Bolão ⚽ (Sem erro total)</h1>
 
 <div class="card">
-<h2>Adicionar jogador</h2>
-<input id="nome" placeholder="Nome do jogador">
-<select id="time1"></select>
-<select id="time2"></select>
-<button onclick="addPlayer()">Adicionar</button>
+  <h2>Palpite</h2>
+  <input id="nome" placeholder="Seu nome">
+
+  <select id="timeA">
+    <option value="Corinthians">Corinthians</option><option value="Palmeiras">Palmeiras</option><option value="São Paulo">São Paulo</option><option value="Santos">Santos</option><option value="Flamengo">Flamengo</option><option value="Fluminense">Fluminense</option><option value="Vasco da Gama">Vasco da Gama</option><option value="Botafogo">Botafogo</option><option value="Grêmio">Grêmio</option><option value="Internacional">Internacional</option><option value="Atlético-MG">Atlético-MG</option><option value="Cruzeiro">Cruzeiro</option><option value="Bahia">Bahia</option><option value="Fortaleza">Fortaleza</option><option value="Ceará">Ceará</option><option value="Athletico-PR">Athletico-PR</option><option value="RB Bragantino">RB Bragantino</option><option value="Goiás">Goiás</option><option value="Coritiba">Coritiba</option><option value="América-MG">América-MG</option>
+  </select>
+
+  <select id="timeB">
+    <option value="Corinthians">Corinthians</option><option value="Palmeiras">Palmeiras</option><option value="São Paulo">São Paulo</option><option value="Santos">Santos</option><option value="Flamengo">Flamengo</option><option value="Fluminense">Fluminense</option><option value="Vasco da Gama">Vasco da Gama</option><option value="Botafogo">Botafogo</option><option value="Grêmio">Grêmio</option><option value="Internacional">Internacional</option><option value="Atlético-MG">Atlético-MG</option><option value="Cruzeiro">Cruzeiro</option><option value="Bahia">Bahia</option><option value="Fortaleza">Fortaleza</option><option value="Ceará">Ceará</option><option value="Athletico-PR">Athletico-PR</option><option value="RB Bragantino">RB Bragantino</option><option value="Goiás">Goiás</option><option value="Coritiba">Coritiba</option><option value="América-MG">América-MG</option>
+  </select>
+
+  <input id="placar" placeholder="Ex: 2x1">
+  <button onclick="addPalpite()">Salvar</button>
 </div>
 
 <div class="card">
-<h2>Ranking</h2>
-<table>
-<thead>
-<tr>
-<th>#</th>
-<th>Jogador</th>
-<th>Times</th>
-<th>Pontos</th>
-</tr>
-</thead>
-<tbody id="ranking"></tbody>
-</table>
+  <h2>Ranking</h2>
+  <button onclick="atualizarResultados()">Atualizar</button>
+  <ul id="ranking"></ul>
 </div>
 
-<script src="firebase.js"></script>
-<script src="teams.js"></script>
 <script src="script.js"></script>
-
 </body>
 </html>

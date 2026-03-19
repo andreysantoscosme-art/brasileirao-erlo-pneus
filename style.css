@@ -1,8 +1,27 @@
-body{
-font-family:Arial;
-background:#0b0f19;
-color:white;
-padding:20px;
+body {
+  background:#121212;
+  color:#fff;
+  font-family:Arial;
+  text-align:center;
 }
-.card{background:#161d2f;padding:20px;border-radius:10px;margin-bottom:20px;}
-.logo{width:24px}
+.card {
+  background:#1e1e1e;
+  padding:20px;
+  margin:20px auto;
+  border-radius:10px;
+  width:320px;
+}
+input, select {
+  display:block;
+  margin:10px auto;
+  padding:10px;
+  width:90%;
+}
+button {
+  padding:10px;
+  background:#2962ff;
+  border:none;
+  color:#fff;
+  border-radius:5px;
+  cursor:pointer;
+}

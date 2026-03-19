@@ -1,16 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bolão Brasileirão 2026</title>
+<title>Bolão PRO</title>
 <link rel="stylesheet" href="style.css">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 </head>
 
 <body>
 
-<h1>🏆 Bolão Brasileirão 2026</h1>
+<h1>🏆 Bolão PRO</h1>
 
 <div class="card">
 <h2>Adicionar jogador</h2>
@@ -29,15 +33,13 @@
 <th>Jogador</th>
 <th>Times</th>
 <th>Pontos</th>
-<th></th>
 </tr>
 </thead>
 <tbody id="ranking"></tbody>
 </table>
 </div>
 
-<p class="status">Atualização automática da tabela (ESPN)</p>
-
+<script src="firebase.js"></script>
 <script src="teams.js"></script>
 <script src="script.js"></script>
 

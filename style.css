@@ -1,34 +1,8 @@
-
 body{
 font-family:Arial;
 background:#0b0f19;
 color:white;
-margin:0;
 padding:20px;
 }
-h1{text-align:center}
-.card{
-background:#161d2f;
-padding:20px;
-border-radius:10px;
-margin-bottom:20px;
-}
-input,select{
-width:100%;
-padding:10px;
-margin:6px 0;
-border-radius:6px;
-border:none;
-}
-button{
-padding:10px;
-background:#22c55e;
-border:none;
-border-radius:6px;
-font-weight:bold;
-cursor:pointer;
-}
-table{width:100%;border-collapse:collapse}
-td,th{padding:10px;border-bottom:1px solid #2c3654}
-.logo{width:22px;margin-right:6px;vertical-align:middle}
-.status{text-align:center;opacity:.7}
+.card{background:#161d2f;padding:20px;border-radius:10px;margin-bottom:20px;}
+.logo{width:24px}

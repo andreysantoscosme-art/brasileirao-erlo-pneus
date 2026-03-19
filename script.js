@@ -1,4 +1,3 @@
-
 const select1=document.getElementById("time1")
 const select2=document.getElementById("time2")
 
@@ -14,40 +13,47 @@ o2.text=t
 select2.appendChild(o2)
 })
 
-let players = JSON.parse(localStorage.getItem("players")) || []
+let players=[]
 let pontos={}
 
-function teamUsed(t){
-return players.some(p=>p.t1===t||p.t2===t)
+function normalizarNome(name){
+  if(name.includes("Athletico")) return "Athletico-PR"
+  if(name.includes("Atlético Mineiro")) return "Atlético-MG"
+  if(name.includes("Vasco")) return "Vasco"
+  if(name.includes("Bragantino")) return "Red Bull Bragantino"
+  return name
 }
+
+// LOGIN
+function login(){
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider);
+}
+
+auth.onAuthStateChanged(async user=>{
+  if(user){
+    let doc = await db.collection("bolao").doc(user.uid).get();
+    if(doc.exists){
+      players = doc.data().players || [];
+    }
+    updateTable()
+  }else{
+    login()
+  }
+})
 
 function addPlayer(){
-
-if(players.length>=10){
-alert("Máximo 10 jogadores")
-return
-}
-
 let nome=document.getElementById("nome").value
 let t1=select1.value
 let t2=select2.value
 
-if(!nome){alert("Digite o nome");return}
-if(t1===t2){alert("Escolha times diferentes");return}
-if(teamUsed(t1)||teamUsed(t2)){alert("Esse time já foi escolhido");return}
-
-players.push({nome:nome,t1:t1,t2:t2})
-
-localStorage.setItem("players", JSON.stringify(players))
-
-render()
+players.push({nome,t1,t2})
+salvar()
 }
 
-function removePlayer(i){
-
-players.splice(i,1)
-localStorage.setItem("players", JSON.stringify(players))
-
+async function salvar(){
+let user = auth.currentUser
+await db.collection("bolao").doc(user.uid).set({players})
 render()
 }
 
@@ -56,7 +62,6 @@ return (pontos[p.t1]||0)+(pontos[p.t2]||0)
 }
 
 function render(){
-
 let ranking=[...players].map(p=>({
 nome:p.nome,
 t1:p.t1,
@@ -70,52 +75,31 @@ let tb=document.getElementById("ranking")
 tb.innerHTML=""
 
 ranking.forEach((p,i)=>{
-
 let tr=document.createElement("tr")
-
 tr.innerHTML=`
 <td>${i+1}</td>
 <td>${p.nome}</td>
 <td>
-<img class="logo" src="${LOGOS[p.t1]}"> ${p.t1} +
+<img class="logo" src="${LOGOS[p.t1]}"> ${p.t1}<br>
 <img class="logo" src="${LOGOS[p.t2]}"> ${p.t2}
 </td>
 <td>${p.pts}</td>
-<td><button onclick="removePlayer(${i})">Excluir</button></td>
 `
-
 tb.appendChild(tr)
-
 })
 }
 
 async function updateTable(){
-
-try{
-
 let res=await fetch("https://site.api.espn.com/apis/v2/sports/soccer/bra.1/standings")
 let data=await res.json()
 
 data.children[0].standings.entries.forEach(t=>{
-
-let name=t.team.displayName
+let name=normalizarNome(t.team.displayName)
 let pts=t.stats.find(s=>s.name==="points").value
-
-if(name==="RB Bragantino") name="Red Bull Bragantino"
-if(name==="Atlético Mineiro") name="Atlético-MG"
-if(name==="Vasco da Gama") name="Vasco"
-
 pontos[name]=pts
-
 })
 
 render()
-
-}catch(e){}
-
 }
 
 setInterval(updateTable,300000)
-updateTable()
-
-render()

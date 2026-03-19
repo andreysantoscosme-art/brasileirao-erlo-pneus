@@ -2,32 +2,29 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Bolão Master</title>
+<title>Bolão Times</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Bolão ⚽ (Sem erro total)</h1>
+<h1>Bolão (2 Times por Pessoa)</h1>
 
 <div class="card">
-  <h2>Palpite</h2>
-  <input id="nome" placeholder="Seu nome">
+  <input id="nome" placeholder="Nome da pessoa">
 
-  <select id="timeA">
+  <select id="time1">
     <option value="Corinthians">Corinthians</option><option value="Palmeiras">Palmeiras</option><option value="São Paulo">São Paulo</option><option value="Santos">Santos</option><option value="Flamengo">Flamengo</option><option value="Fluminense">Fluminense</option><option value="Vasco da Gama">Vasco da Gama</option><option value="Botafogo">Botafogo</option><option value="Grêmio">Grêmio</option><option value="Internacional">Internacional</option><option value="Atlético-MG">Atlético-MG</option><option value="Cruzeiro">Cruzeiro</option><option value="Bahia">Bahia</option><option value="Fortaleza">Fortaleza</option><option value="Ceará">Ceará</option><option value="Athletico-PR">Athletico-PR</option><option value="RB Bragantino">RB Bragantino</option><option value="Goiás">Goiás</option><option value="Coritiba">Coritiba</option><option value="América-MG">América-MG</option>
   </select>
 
-  <select id="timeB">
+  <select id="time2">
     <option value="Corinthians">Corinthians</option><option value="Palmeiras">Palmeiras</option><option value="São Paulo">São Paulo</option><option value="Santos">Santos</option><option value="Flamengo">Flamengo</option><option value="Fluminense">Fluminense</option><option value="Vasco da Gama">Vasco da Gama</option><option value="Botafogo">Botafogo</option><option value="Grêmio">Grêmio</option><option value="Internacional">Internacional</option><option value="Atlético-MG">Atlético-MG</option><option value="Cruzeiro">Cruzeiro</option><option value="Bahia">Bahia</option><option value="Fortaleza">Fortaleza</option><option value="Ceará">Ceará</option><option value="Athletico-PR">Athletico-PR</option><option value="RB Bragantino">RB Bragantino</option><option value="Goiás">Goiás</option><option value="Coritiba">Coritiba</option><option value="América-MG">América-MG</option>
   </select>
 
-  <input id="placar" placeholder="Ex: 2x1">
-  <button onclick="addPalpite()">Salvar</button>
+  <button onclick="adicionar()">Adicionar</button>
 </div>
 
 <div class="card">
-  <h2>Ranking</h2>
-  <button onclick="atualizarResultados()">Atualizar</button>
+  <button onclick="calcular()">Atualizar Pontuação</button>
   <ul id="ranking"></ul>
 </div>
 

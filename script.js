@@ -1,53 +1,59 @@
-let palpites = [];
+let jogadores = [];
 
-// RESULTADOS (edite conforme ESPN)
-const resultados = [
-  {times:["Corinthians","Palmeiras"], placar:"2x1"},
-  {times:["São Paulo","Santos"], placar:"1x1"}
-];
+// TABELA (VOCÊ ATUALIZA COM ESPN)
+const tabela = {
+  "Flamengo": 50,
+  "Palmeiras": 48,
+  "Atlético-MG": 45,
+  "Botafogo": 44,
+  "São Paulo": 42,
+  "Fluminense": 40,
+  "Grêmio": 38,
+  "Internacional": 36,
+  "Athletico-PR": 35,
+  "RB Bragantino": 34,
+  "Cruzeiro": 33,
+  "Vasco da Gama": 30,
+  "Bahia": 29,
+  "Fortaleza": 28,
+  "Santos": 27,
+  "Corinthians": 26,
+  "Goiás": 25,
+  "Coritiba": 22,
+  "América-MG": 20,
+  "Ceará": 18
+};
 
-function addPalpite(){
-  const nome = document.getElementById('nome').value;
-  const timeA = document.getElementById('timeA').value;
-  const timeB = document.getElementById('timeB').value;
-  const placar = document.getElementById('placar').value;
+function adicionar(){
+  const nome = document.getElementById("nome").value;
+  const t1 = document.getElementById("time1").value;
+  const t2 = document.getElementById("time2").value;
 
-  if(!nome || !placar){
-    alert("Preencha tudo");
+  if(!nome){
+    alert("Digite o nome");
     return;
   }
 
-  palpites.push({nome, times:[timeA,timeB], placar, pontos:0});
+  jogadores.push({nome, t1, t2, pontos:0});
   render();
 }
 
-function mesmoJogo(t1, t2){
-  return (
-    (t1[0] === t2[0] && t1[1] === t2[1]) ||
-    (t1[0] === t2[1] && t1[1] === t2[0])
-  );
-}
-
-function atualizarResultados(){
-  palpites.forEach(p => {
-    resultados.forEach(r => {
-      if(mesmoJogo(p.times, r.times) && p.placar === r.placar){
-        p.pontos += 3;
-      }
-    });
+function calcular(){
+  jogadores.forEach(j=>{
+    j.pontos = (tabela[j.t1] || 0) + (tabela[j.t2] || 0);
   });
   render();
 }
 
 function render(){
-  const lista = document.getElementById('ranking');
-  lista.innerHTML = "";
+  const ul = document.getElementById("ranking");
+  ul.innerHTML="";
 
-  palpites.sort((a,b)=> b.pontos - a.pontos);
+  jogadores.sort((a,b)=>b.pontos-a.pontos);
 
-  palpites.forEach(p=>{
-    const li = document.createElement('li');
-    li.innerText = `${p.nome} - ${p.pontos} pts`;
-    lista.appendChild(li);
+  jogadores.forEach(j=>{
+    const li = document.createElement("li");
+    li.innerText = j.nome + " - " + j.pontos + " pts";
+    ul.appendChild(li);
   });
 }

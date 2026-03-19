@@ -1,9 +1,4 @@
-const TIMES=[
-"Athletico-PR","Atlético-MG","Bahia","Botafogo","Red Bull Bragantino",
-"Chapecoense","Corinthians","Coritiba","Cruzeiro","Flamengo",
-"Fluminense","Grêmio","Internacional","Mirassol","Palmeiras",
-"Remo","Santos","São Paulo","Vasco","Vitória"
-]
+const TIMES=["Athletico-PR","Atlético-MG","Bahia","Botafogo","Red Bull Bragantino","Chapecoense","Corinthians","Coritiba","Cruzeiro","Flamengo","Fluminense","Grêmio","Internacional","Mirassol","Palmeiras","Remo","Santos","São Paulo","Vasco","Vitória"];
 
 const LOGOS={
 "Athletico-PR":"https://logodetimes.com/times/atletico-paranaense/logo-atletico-paranaense-256.png",
@@ -26,4 +21,4 @@ const LOGOS={
 "São Paulo":"https://logodetimes.com/times/sao-paulo/logo-sao-paulo-256.png",
 "Vasco":"https://logodetimes.com/times/vasco/logo-vasco-256.png",
 "Vitória":"https://logodetimes.com/times/vitoria/logo-vitoria-256.png"
-}
+};

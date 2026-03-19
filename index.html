@@ -2,27 +2,42 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Bolão Automático ESPN</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bolão Brasileirão 2026</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Bolão Automático ⚽</h1>
+<h1>🏆 Bolão Brasileirão 2026</h1>
 
 <div class="card">
-  <input id="nome" placeholder="Nome">
-
-  <select id="time1"></select>
-  <select id="time2"></select>
-
-  <button onclick="adicionar()">Adicionar</button>
+<h2>Adicionar jogador</h2>
+<input id="nome" placeholder="Nome do jogador">
+<select id="time1"></select>
+<select id="time2"></select>
+<button onclick="addPlayer()">Adicionar</button>
 </div>
 
 <div class="card">
-  <button onclick="atualizar()">Atualizar Automático</button>
-  <ul id="ranking"></ul>
+<h2>Ranking</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Jogador</th>
+<th>Times</th>
+<th>Pontos</th>
+<th></th>
+</tr>
+</thead>
+<tbody id="ranking"></tbody>
+</table>
 </div>
 
+<p class="status">Atualização automática da tabela (ESPN)</p>
+
+<script src="teams.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>
